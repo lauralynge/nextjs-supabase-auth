@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
@@ -26,6 +27,12 @@ async function signIn(formData) {
 export default async function LoginPage({ searchParams }) {
   const { error } = await searchParams;
 
+  // Already logged in? Then there is nothing to do here
+  const user = await getCurrentUser();
+
+  if (user) {
+    redirect("/profile");
+  }
   return (
     <main className="page">
       <h1>Log In</h1>
