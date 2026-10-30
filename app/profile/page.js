@@ -1,19 +1,11 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { signOut } from "@/lib/actions";
 import { getCurrentUser } from "@/lib/auth";
 
 export const metadata = {
   title: "Profile",
 };
 
-async function signOut() {
-  "use server";
-
-  const supabase = await createClient();
-  await supabase.auth.signOut();
-
-  redirect("/");
-}
 
 export default async function ProfilePage() {
   const user = await getCurrentUser();
