@@ -1,5 +1,10 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata = {
+  title: "Sign up",
+};
 
 async function signUp(formData) {
   "use server";
@@ -22,7 +27,7 @@ export default async function SignUpPage({ searchParams }) {
   const { error } = await searchParams;
 
   return (
-    <main className="auth-page">
+    <main className="page">
       <h1>Sign Up</h1>
       {error && (
         <p className="form-error" role="alert">
@@ -32,7 +37,13 @@ export default async function SignUpPage({ searchParams }) {
       {/* Sign up form goes here */}
       <form className="auth-form" action={signUp}>
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Email" required />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
         <label htmlFor="password">Password</label>
         <input
           id="password"
@@ -45,6 +56,9 @@ export default async function SignUpPage({ searchParams }) {
         />
         <button type="submit">Sign Up</button>
       </form>
+      <p>
+        Already have an account? <Link href="/login">Log in</Link>
+      </p>
     </main>
   );
 }
