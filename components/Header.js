@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AuthStatus from "./AuthStatus";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -16,15 +17,10 @@ export default function Header() {
             <Link href="/profile">Profile</Link>
           </li>
           <li>
-            <Link href="/signup">Sign up</Link>
-          </li>
-          <li>
-            <Link href="/login">Log in</Link>
-          </li>
-          <li>
             <Link href="/members">Members</Link>
           </li>
         </ul>
+        <AuthStatus />
       </nav>
     </header>
   );
