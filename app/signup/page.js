@@ -20,7 +20,7 @@ async function signUp(formData) {
     redirect("/signup?error=true");
   }
 
-  redirect("/");
+  redirect("/profile");
 }
 
 export default async function SignUpPage({ searchParams }) {
