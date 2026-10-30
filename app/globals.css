@@ -53,6 +53,11 @@ a {
   color: var(--accent);
 }
 
+/* Centers the sign up and log in pages */
+.auth-page {
+  max-width: 24rem;
+}
+
 /* The forms for sign up, log in and log out */
 .auth-form {
   display: flex;

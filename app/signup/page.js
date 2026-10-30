@@ -1,0 +1,50 @@
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+
+async function signUp(formData) {
+  "use server";
+
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signUp({ email, password });
+
+  if (error) {
+    console.log(error.message);
+    redirect("/signup?error=true");
+  }
+
+  redirect("/");
+}
+
+export default async function SignUpPage({ searchParams }) {
+  const { error } = await searchParams;
+
+  return (
+    <main className="auth-page">
+      <h1>Sign Up</h1>
+      {error && (
+        <p className="form-error" role="alert">
+          Could not sign up. Maybe the email is already in use.
+        </p>
+      )}
+      {/* Sign up form goes here */}
+      <form className="auth-form" action={signUp}>
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" required />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="At least 6 characters"
+          autoComplete="new-password"
+          minLength={6}
+          required
+        />
+        <button type="submit">Sign Up</button>
+      </form>
+    </main>
+  );
+}
